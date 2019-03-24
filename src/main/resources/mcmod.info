@@ -1,0 +1,16 @@
+[
+{
+  "modid": "bonemealcontrol",
+  "name": "BonemealControl",
+  "description": "Control aspects of bonemeal use.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["mattjohns384@gmail.com"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
