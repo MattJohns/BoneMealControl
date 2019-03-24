@@ -1,0 +1,37 @@
+{
+	"list": [
+		{
+			"description": "Turn dirt into grass",
+			"targetBlockName": "minecraft:dirt",
+			"fillBlockName": "minecraft:grass",
+			"radius": 1,
+			"chance": 1.0,
+			"centerIsAlwaysFill": false,
+			"surfaceIsFill": false,
+			"aboveIsRequireTransparent": true,
+			"aboveIsRequireAir": false
+		},
+		{
+			"description": "Grow red mushrooms on mycelium",
+			"targetBlockName": "minecraft:mycelium",
+			"fillBlockName": "minecraft:red_mushroom",
+			"radius": 3.0,
+			"chance": 0.1,
+			"centerIsAlwaysFill": false,
+			"surfaceIsFill": true,
+			"aboveIsRequireTransparent": false,
+			"aboveIsRequireAir": false
+		},
+		{
+			"description": "Grow brown mushrooms on mycelium",
+			"targetBlockName": "minecraft:mycelium",
+			"fillBlockName": "minecraft:brown_mushroom",
+			"radius": 3.0,
+			"chance": 0.1,
+			"centerIsAlwaysFill": false,
+			"surfaceIsFill": true,
+			"aboveIsRequireTransparent": false,
+			"aboveIsRequireAir": false
+		}
+	]
+}

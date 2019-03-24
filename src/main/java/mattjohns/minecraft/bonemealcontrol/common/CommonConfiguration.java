@@ -75,7 +75,7 @@ public class CommonConfiguration extends ConfigurationBase {
 
 	// melon block
 	public static final ConfigurationElementBoolean ElementMelonEnable = ConfigurationElementBoolean.of(CategoryGeneral,
-			"MelonEnable", false,
+			"MelonEnable", true,
 			"Enable bonemeal on melon and pumpkin stems to grow the stem itself (as in vanilla).");
 
 	public static final ConfigurationElementBoolean ElementMelonBlockEnable = ConfigurationElementBoolean.of(
