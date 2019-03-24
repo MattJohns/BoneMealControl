@@ -24,4 +24,4 @@ Add custom bonemeal recipes.  You can specify:
  - Chance of block being replaced
  - Place items on the surface rather than replace the target block (e.g. for creating saplings on dirt)
  
-See the wiki for more details.
+See the [wiki](https://github.com/MattJohns/BonemealControl/wiki) for more details.
