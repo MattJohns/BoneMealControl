@@ -25,3 +25,5 @@ Add custom bone meal recipes.  You can specify:
  - Place items on the surface rather than replace the target block (e.g. for creating saplings on dirt)
  
 See the [wiki](https://github.com/MattJohns/BoneMealControl/wiki) for more details.
+
+Download the mod from [CurseForge](https://minecraft.curseforge.com/projects/bonemeal-control) or find it on the [Twitch app](https://www.twitch.tv/downloads).
