@@ -1,0 +1,23 @@
+version 1.1
+
+25 mar 2018
+
+- add water and lava as targets for custom rule
+
+- add baby zombie and baby animal as targets for built-in rule
+
+- fix double-high blocks only placing the bottom half
+
+- add block state for custom rule blocks
+
+- add notification for player if they attempt to use bone meal on vanilla item that's disabled
+
+- add categories to configuration file 
+
+---
+
+version 1.0
+
+24 mar 2018
+
+- initial release

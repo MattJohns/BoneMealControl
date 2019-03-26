@@ -3,11 +3,15 @@ package mattjohns.minecraft.bonemealcontrol.server.grow;
 import java.util.ArrayList;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 
+import mattjohns.minecraft.common.block.BlockStateException;
+import mattjohns.minecraft.common.block.BlockStateUtility;
+import mattjohns.minecraft.common.log.Log;
 import mattjohns.minecraft.common.system.SystemUtility;
 
 /**
- * User defined bonemeal target. Allows them to specify the type of block to
+ * User defined bone meal target. Allows them to specify the type of block to
  * replace the target with.
  * 
  * Can set a radius with partial fill rather than a target block. Can place
@@ -26,8 +30,31 @@ public class GrowCustomFillItem {
 	// block that the bonemeal is used on
 	public String targetBlockName;
 
+	public String targetBlockStateText;
+
+	// Cache block state so it doesn't have to be derived from text each time.
+	// Transient marks this as internal (i.e. not deserialized by gson).
+	protected transient IBlockState targetBlockStateCache;
+
+	// List of block state property keys to check against target, derived
+	// automatically from targetBlockStateText member.
+	//
+	// Need this list so that you can compare a just a few properties against a
+	// block rather than checking every single property. That way the user can
+	// specify a partial criteria.
+	//
+	// For example you can specify that a chest must be facing south without
+	// caring about the chest content.
+	protected transient ArrayList<String> targetBlockStateKeyListCache;
+
 	// block that the target turns into
 	public String fillBlockName;
+
+	public String fillBlockStateText;
+
+	// Block state used to fill. Doesn't need text key list because no
+	// comparisons are needed, it's simply placed into the world.
+	protected transient IBlockState fillBlockStateCache;
 
 	// Radius of the bonemeal effect. This is direct line radius as opposed to
 	// taxi cab distance. It's measured from the center of surrounding blocks to
@@ -70,6 +97,10 @@ public class GrowCustomFillItem {
 			}
 		}
 
+		if (targetBlockStateText == null) {
+			targetBlockStateText = "";
+		}
+
 		// fill block name
 		if (fillBlockName == null) {
 			result = false;
@@ -79,6 +110,10 @@ public class GrowCustomFillItem {
 				result = false;
 				errorList.add("fillBlockName \"" + fillBlockName + "\" not found.");
 			}
+		}
+
+		if (fillBlockStateText == null) {
+			fillBlockStateText = "";
 		}
 
 		// radius
@@ -107,16 +142,58 @@ public class GrowCustomFillItem {
 	}
 
 	// assumes block name is valid
-	public Block targetBlock() {
+	protected Block targetBlock() {
 		Block result = SystemUtility.blockGet(targetBlockName);
 		assert result != null;
 		return result;
 	}
 
 	// assumes block name is valid
-	public Block fillBlock() {
+	protected Block fillBlock() {
 		Block result = SystemUtility.blockGet(fillBlockName);
 		assert result != null;
 		return result;
+	}
+
+	public void blockStateCacheDerive(Log log) {
+		// target
+		String targetBlockStateTextTrim = targetBlockStateText.trim();
+		if (targetBlockStateTextTrim.isEmpty()) {
+			targetBlockStateCache = targetBlock().getDefaultState();
+		} else {
+			targetBlockStateCache = blockStateDerive(targetBlockStateTextTrim, targetBlock().getDefaultState(), log);
+		}
+
+		targetBlockStateKeyListCache = BlockStateUtility.keyListDerive(targetBlockStateTextTrim);
+
+		// fill
+		String fillBlockStateTextTrim = fillBlockStateText.trim();
+		if (fillBlockStateTextTrim.isEmpty()) {
+			fillBlockStateCache = fillBlock().getDefaultState();
+		} else {
+			fillBlockStateCache = blockStateDerive(fillBlockStateTextTrim, fillBlock().getDefaultState(), log);
+		}
+	}
+
+	public IBlockState targetBlockStateCache() {
+		return targetBlockStateCache;
+	}
+
+	public IBlockState fillBlockStateCache() {
+		return fillBlockStateCache;
+	}
+
+	// get block state from text and merge with given state
+	protected IBlockState blockStateDerive(String text, IBlockState defaultBlockState, Log log) {
+		try {
+			return BlockStateUtility.deserialize(text, defaultBlockState);
+		} catch (BlockStateException e) {
+			// failed, just use default state
+			String errorText = e.getMessage() + "  Custom fill block \""
+					+ defaultBlockState.getBlock().getLocalizedName() + "\".";
+			log.error(errorText);
+
+			return defaultBlockState;
+		}
 	}
 }

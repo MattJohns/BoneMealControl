@@ -11,12 +11,12 @@ import net.minecraftforge.common.MinecraftForge;
 public class ConsoleCommandConfigurationReload extends CommandBase {
 	@Override
 	public String getName() {
-		return "bonemealControlConfigurationReload";
+		return "boneMealControlConfigurationReload";
 	}
 
 	@Override
 	public String getUsage(ICommandSender sender) {
-		return "/bonemealControlConfigurationReload";
+		return "/boneMealControlConfigurationReload";
 	}
 
 	@Override

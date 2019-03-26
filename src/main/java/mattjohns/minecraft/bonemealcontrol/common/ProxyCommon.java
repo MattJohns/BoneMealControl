@@ -46,6 +46,9 @@ public abstract class ProxyCommon implements ProgramEventReceiver {
 			log = new Log(event.getModLog());
 		}
 
+		///// might need to load json later in case it references blocks from mods that aren't loaded yet,
+		/// alternatively just load them lazily
+		
 		configuration = new CommonConfiguration(log);
 		configuration.copyFromStorage();
 

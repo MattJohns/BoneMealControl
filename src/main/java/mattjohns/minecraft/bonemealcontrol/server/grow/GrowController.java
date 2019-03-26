@@ -2,13 +2,20 @@ package mattjohns.minecraft.bonemealcontrol.server.grow;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.monster.EntityZombie;
+import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import mattjohns.minecraft.bonemealcontrol.common.CommonConfiguration;
 
-// central controller for bonemeal, both custom and vanilla targets 
+// central controller for bone meal, both custom and vanilla targets 
 public class GrowController {
 	protected CommonConfiguration configuration;
 
@@ -20,6 +27,8 @@ public class GrowController {
 	protected GrowCustomFillController customFill;
 	protected GrowVine vine;
 	protected GrowChorusFlower chorusFlower;
+	protected GrowZombie zombie;
+	protected GrowAnimal animal;
 
 	public GrowController(CommonConfiguration configuration) {
 		this.configuration = configuration;
@@ -31,9 +40,11 @@ public class GrowController {
 		customFill = new GrowCustomFillController(configuration);
 		vine = new GrowVine(configuration);
 		chorusFlower = new GrowChorusFlower(configuration);
+		zombie = new GrowZombie(configuration);
+		animal = new GrowAnimal(configuration);
 	}
 
-	public GrowResult bonemealUse(World world, BlockPos targetPosition, IBlockState targetblockState) {
+	public GrowResult boneMealUse(World world, BlockPos targetPosition, IBlockState targetblockState) {
 		Block targetBlock = targetblockState.getBlock();
 
 		// vanilla
@@ -119,7 +130,8 @@ public class GrowController {
 		boolean customFillAtLeastOneSuccess = false;
 
 		for (GrowCustomFillItem item : configuration.customFillList) {
-			if (targetBlock.equals(item.targetBlock())) {
+			Block targetDesireBlock = item.targetBlockStateCache.getBlock();
+			if (targetBlock.equals(targetDesireBlock)) {
 				// found one
 				if (customFill.grow(world, targetPosition, item)) {
 					customFillAtLeastOneSuccess = true;
@@ -127,7 +139,7 @@ public class GrowController {
 			}
 		}
 
-		// Use up bonemeal even if some of the custom fills failed. Only matters
+		// Use up bone meal even if some of the custom fills failed. Only matters
 		// for cases where the custom fill list has the same target block for
 		// multiple entries.
 		if (customFillAtLeastOneSuccess) {
@@ -155,5 +167,51 @@ public class GrowController {
 		// not a valid target block and must be custom because all vanilla
 		// blocks have been tested above
 		return GrowResult.ofCustom(false);
+	}
+
+	public boolean boneMealUseEntity(World world, Entity targetEntity) {
+		// zombie
+		if (targetEntity instanceof EntityZombie) {
+			EntityZombie zombieEntity = (EntityZombie)targetEntity;
+			 
+			return zombie.grow(world, zombieEntity);
+		}
+
+		// animal
+		if (targetEntity instanceof EntityAnimal) {
+			EntityAnimal animalEntity = (EntityAnimal)targetEntity;
+			
+			return animal.grow(world, animalEntity);
+		}
+		
+		return false;
+	}
+	
+	public boolean isBonemeal(ItemStack itemStack) {
+		if (!itemStack.getItem().equals(Items.DYE)) {
+			// not dye
+			return false;
+		}
+
+        EnumDyeColor enumdyecolor = EnumDyeColor.byDyeDamage(itemStack.getMetadata());
+        if (enumdyecolor != EnumDyeColor.WHITE) {
+        	// not bonemeal
+        	return false;
+        }
+        
+        return true;
+	}
+	
+	public void bonemealEffect(World world, Entity entity) {
+		BlockPos position = entity.getPosition();
+		
+		// do the effect at the entity's head level
+		int offsetY = (int)Math.floor(entity.height);
+		
+		bonemealEffect(world, position.offset(EnumFacing.UP, offsetY));
+	}
+
+	public void bonemealEffect(World world, BlockPos position) {
+        world.playEvent(2005, position, 0);
 	}
 }
