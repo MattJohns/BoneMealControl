@@ -1,7 +1,7 @@
-# BonemealControl
-Minecraft modification for controlling which items bonemeal can be used on.
+# BoneMealControl
+Minecraft modification for controlling which items bone meal can be used on.
 
-Enable or disable vanilla bonemeal:
+Enable or disable vanilla bone meal:
  - Saplings
  - Farmland plants (wheat, carrots, potatoes, beetroot)
  - Grass blocks
@@ -9,7 +9,7 @@ Enable or disable vanilla bonemeal:
  - Mushrooms
  - Cocoa pods
 
-Enable bonemeal for:
+Enable bone meal for:
  - Cactus
  - Sugarcane
  - Melons and pumpkins
@@ -17,11 +17,11 @@ Enable bonemeal for:
  - Nether Wart
  - Chorus Flowers
  
-Add custom bonemeal recipes.  You can specify:
+Add custom bone meal recipes.  You can specify:
  - Target block to replace
  - Type of block to replace it with
- - Radius of bonemeal effect in number of blocks
+ - Radius of bone meal effect in number of blocks
  - Chance of block being replaced
  - Place items on the surface rather than replace the target block (e.g. for creating saplings on dirt)
  
-See the wiki for more details.
+See the [wiki](https://github.com/MattJohns/BoneMealControl/wiki) for more details.
