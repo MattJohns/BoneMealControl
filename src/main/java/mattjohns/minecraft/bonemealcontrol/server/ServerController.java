@@ -70,8 +70,7 @@ public class ServerController implements ProgramEventReceiver {
 	@Override
 	public void onProgramInitializeAllModEnd(FMLPostInitializationEvent event) {
 		// only load the custom fill after all mods are loaded, otherwise you
-		// might
-		// not have access to all blocks from mods
+		// might not have access to all blocks from mods
 		configuration.customFillCopyFromStorage();
 	}
 

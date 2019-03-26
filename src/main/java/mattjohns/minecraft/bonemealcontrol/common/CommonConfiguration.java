@@ -137,11 +137,11 @@ public class CommonConfiguration extends ConfigurationBase {
 			"AnimalEnable", false, "Enable bone meal on baby animals.");
 
 	public static final ConfigurationElementInteger ElementAnimalAgeIncrement = ConfigurationElementInteger.of(
-			CategoryAnimal, "ElementAnimalAgeIncrement", 20, 0, 1000,
+			CategoryAnimal, "AnimalAgeIncrement", 100, 0, 1000,
 			"Fixed number of seconds to add the animal's age for each bone meal application.");
 
 	public static final ConfigurationElementInteger ElementAnimalAgeRandomIncrement = ConfigurationElementInteger.of(
-			CategoryAnimal, "ElementAnimalAgeRandomIncrement", 40, 0, 1000,
+			CategoryAnimal, "AnimalAgeRandomIncrement", 200, 0, 1000,
 			"Random number of seconds to add the animal's age.\n" + "This is added to the fixed increment above.");
 
 	// loaded from custom fill json file, otherwise empty list
