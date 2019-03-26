@@ -2,8 +2,8 @@
 Minecraft modification for controlling which items bone meal can be used on.
 
 Enable or disable vanilla bone meal:
- - Saplings
  - Farmland plants (wheat, carrots, potatoes, beetroot)
+ - Saplings
  - Grass blocks
  - Tall grass and flowers
  - Mushrooms
@@ -16,11 +16,14 @@ Enable bone meal for:
  - Vines
  - Nether Wart
  - Chorus Flowers
+ - Zombies
+ - Animals
  
 Add custom bone meal recipes.  You can specify:
  - Target block to replace
  - Type of block to replace it with
- - Radius of bone meal effect in number of blocks
+ - Block state for target and fill blocks (See [wiki](https://github.com/MattJohns/BoneMealControl/wiki) for format)
+ - Radius of bone meal effect
  - Chance of block being replaced
  - Place items on the surface rather than replace the target block (e.g. for creating saplings on dirt)
  
