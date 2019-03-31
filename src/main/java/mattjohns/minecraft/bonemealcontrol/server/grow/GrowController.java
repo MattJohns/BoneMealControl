@@ -1,6 +1,12 @@
 package mattjohns.minecraft.bonemealcontrol.server.grow;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockLog;
+import net.minecraft.block.BlockNewLog;
+import net.minecraft.block.BlockOldLeaf;
+import net.minecraft.block.BlockOldLog;
+import net.minecraft.block.BlockPlanks;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.monster.EntityZombie;
@@ -29,6 +35,7 @@ public class GrowController {
 	protected GrowChorusFlower chorusFlower;
 	protected GrowZombie zombie;
 	protected GrowAnimal animal;
+	protected GrowJungle jungle;
 
 	public GrowController(CommonConfiguration configuration) {
 		this.configuration = configuration;
@@ -42,6 +49,7 @@ public class GrowController {
 		chorusFlower = new GrowChorusFlower(configuration);
 		zombie = new GrowZombie(configuration);
 		animal = new GrowAnimal(configuration);
+		jungle = new GrowJungle(configuration);
 	}
 
 	public GrowResult boneMealUse(World world, BlockPos targetPosition, IBlockState targetblockState) {
@@ -123,6 +131,28 @@ public class GrowController {
 			} else {
 				// vanilla
 				return GrowResult.ofVanilla(configuration.elementGet(CommonConfiguration.ElementMelonEnable));
+			}
+		}
+		
+		// jungle log
+		if (targetBlock.equals(Blocks.LOG)) {
+			if (targetblockState.getValue(BlockOldLog.VARIANT) == BlockPlanks.EnumType.JUNGLE) {
+				if (configuration.elementGet(CommonConfiguration.ElementJungleLogEnable)) {
+					return GrowResult.ofCustom(jungle.growLog(world, targetPosition));
+				} else {
+					return GrowResult.ofCustom(false);
+				}
+			}
+		}
+		
+		// jungle leaf
+		if (targetBlock.equals(Blocks.LEAVES)) {
+			if (targetblockState.getValue(BlockOldLeaf.VARIANT) == BlockPlanks.EnumType.JUNGLE) {
+				if (configuration.elementGet(CommonConfiguration.ElementJungleLeafEnable)) {
+					return GrowResult.ofCustom(jungle.growLeaf(world, targetPosition));
+				} else {
+					return GrowResult.ofCustom(false);
+				}
 			}
 		}
 

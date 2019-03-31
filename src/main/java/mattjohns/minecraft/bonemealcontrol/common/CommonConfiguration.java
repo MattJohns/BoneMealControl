@@ -86,6 +86,26 @@ public class CommonConfiguration extends ConfigurationBase {
 			CategoryCustom, "WartAgeRandomIncrement", 1, 0, 3,
 			"Random amount to add to the nether wart age.\n" + " This is added to the fixed increment above.");
 
+	// jungle log
+	public static final ConfigurationElementBoolean ElementJungleLogEnable = ConfigurationElementBoolean.of(
+			CategoryCustom, "JungleLogEnable", false,
+			"Enable bone meal on jungle logs to create cocoa.");
+
+	public static final ConfigurationElementDouble ElementJungleLogChance = ConfigurationElementDouble.of(
+			CategoryCustom, "JungleLogChance", 0.5d, 0d, 1d,
+			"Chance of a cocoa growing in response to bone meal on the log.\n"
+					+ "The chance is affected by the number of surrounding air blocks.");
+	
+	// jungle leaf
+	public static final ConfigurationElementBoolean ElementJungleLeafEnable = ConfigurationElementBoolean.of(
+			CategoryCustom, "JungleLeafEnable", false,
+			"Enable bone meal on jungle leaves to create vines.");
+
+	public static final ConfigurationElementDouble ElementJungleLeafChance = ConfigurationElementDouble.of(
+			CategoryCustom, "JungleLeafChance", 0.5d, 0d, 1d,
+			"Chance of a vine growing in response to bone meal on the leaf.\n"
+					+ "The chance is affected by the number of surrounding air blocks.");
+	
 	// melon block
 	public static final ConfigurationElementBoolean ElementMelonEnable = ConfigurationElementBoolean.of(CategoryCustom,
 			"MelonEnable", true,
@@ -178,6 +198,10 @@ public class CommonConfiguration extends ConfigurationBase {
 		result.add(ElementVineEnable);
 		result.add(ElementVineUpdateIncrement);
 		result.add(ElementVineUpdateRandomIncrement);
+		result.add(ElementJungleLogEnable);
+		result.add(ElementJungleLogChance);
+		result.add(ElementJungleLeafEnable);
+		result.add(ElementJungleLeafChance);
 		result.add(ElementChorusFlowerEnable);
 		result.add(ElementChorusFlowerUpdateChance);
 		result.add(ElementCustomFillFilename);

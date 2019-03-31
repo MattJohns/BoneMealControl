@@ -1,5 +1,13 @@
 version 1.2
 
+31 Mar 2018
+
+- add cocoa from jungle log
+
+- add vine from jungle leaf
+
+- change version from beta to release
+
 26 mar 2018
 
 - fix AnimalAgeIncrement and AnimalAgeRandomIncrement configuration names
