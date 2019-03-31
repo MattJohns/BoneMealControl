@@ -30,7 +30,7 @@ public class GrowCustomFillItem {
 	// block that the bonemeal is used on
 	public String targetBlockName;
 
-	public String targetBlockStateText;
+	public String targetBlockState;
 
 	// Cache block state so it doesn't have to be derived from text each time.
 	// Transient marks this as internal (i.e. not deserialized by gson).
@@ -50,7 +50,7 @@ public class GrowCustomFillItem {
 	// block that the target turns into
 	public String fillBlockName;
 
-	public String fillBlockStateText;
+	public String fillBlockState;
 
 	// Block state used to fill. Doesn't need text key list because no
 	// comparisons are needed, it's simply placed into the world.
@@ -97,8 +97,8 @@ public class GrowCustomFillItem {
 			}
 		}
 
-		if (targetBlockStateText == null) {
-			targetBlockStateText = "";
+		if (targetBlockState == null) {
+			targetBlockState = "";
 		}
 
 		// fill block name
@@ -112,8 +112,8 @@ public class GrowCustomFillItem {
 			}
 		}
 
-		if (fillBlockStateText == null) {
-			fillBlockStateText = "";
+		if (fillBlockState == null) {
+			fillBlockState = "";
 		}
 
 		// radius
@@ -157,7 +157,7 @@ public class GrowCustomFillItem {
 
 	public void blockStateCacheDerive(Log log) {
 		// target
-		String targetBlockStateTextTrim = targetBlockStateText.trim();
+		String targetBlockStateTextTrim = targetBlockState.trim();
 		if (targetBlockStateTextTrim.isEmpty()) {
 			targetBlockStateCache = targetBlock().getDefaultState();
 		} else {
@@ -167,7 +167,7 @@ public class GrowCustomFillItem {
 		targetBlockStateKeyListCache = BlockStateUtility.keyListDerive(targetBlockStateTextTrim);
 
 		// fill
-		String fillBlockStateTextTrim = fillBlockStateText.trim();
+		String fillBlockStateTextTrim = fillBlockState.trim();
 		if (fillBlockStateTextTrim.isEmpty()) {
 			fillBlockStateCache = fillBlock().getDefaultState();
 		} else {
