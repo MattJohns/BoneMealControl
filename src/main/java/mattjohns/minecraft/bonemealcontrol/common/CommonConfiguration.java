@@ -304,7 +304,7 @@ public class CommonConfiguration extends ConfigurationBase {
 		public static final String ModNameDisplayNoSpace = "BoneMealControl";
 
 		public static final String VersionMajor = "1";
-		public static final String VersionMinor = "1";
+		public static final String VersionMinor = "2";
 		public static final String VersionTestCycle = "0";
 
 		public static final String Version = VersionMajor + "." + VersionMinor;
