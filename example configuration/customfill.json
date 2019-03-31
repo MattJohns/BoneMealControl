@@ -1,11 +1,11 @@
 {
 	"list": [
 		{
-			"description": "Dirt to grass",
+			"description": "Spruce on podzol",
 			"targetBlockName": "minecraft:dirt",
-			"targetBlockStateText": "",
-			"fillBlockName": "minecraft:grass",
-			"fillBlockStateText": "",
+			"targetBlockState": "variant:podzol",
+			"fillBlockName": "minecraft:sapling",
+			"fillBlockState": "stage:1, type:spruce",
 			"radius": 1,
 			"chance": 1.0,
 			"centerIsAlwaysFill": true,
