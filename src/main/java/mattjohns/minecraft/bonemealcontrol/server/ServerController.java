@@ -115,8 +115,16 @@ public class ServerController implements ProgramEventReceiver {
 			return;
 		}
 
-		// need to trace for fluid block
+		// need to ray trace for fluid block
 		RayTraceResult trace = SystemUtility.rayTrace(world, player, true);
+
+		// rayTrace() can return null if the internal vectors become infinite.
+		//
+		// Issue: https://github.com/MattJohns/BoneMealControl/issues/1 .
+		if (trace == null) {
+			event.setCancellationResult(EnumActionResult.FAIL);
+			return;
+		}
 
 		if (trace.typeOfHit != RayTraceResult.Type.BLOCK) {
 			// not in reach of a block
@@ -136,14 +144,16 @@ public class ServerController implements ProgramEventReceiver {
 		IBlockState targetBlockState = world.getBlockState(targetPosition);
 
 		// ensure it's liquid
-		if (!targetBlockState.getMaterial().isLiquid()) {
+		if (!targetBlockState.getMaterial()
+				.isLiquid()) {
 			event.setCancellationResult(EnumActionResult.FAIL);
 			return;
 		}
 
 		if (ItemDye.applyBonemeal(itemStack, world, targetPosition, player, hand)) {
 			event.setCancellationResult(EnumActionResult.SUCCESS);
-		} else {
+		}
+		else {
 			event.setCancellationResult(EnumActionResult.PASS);
 		}
 	}
@@ -178,7 +188,8 @@ public class ServerController implements ProgramEventReceiver {
 					log.informationConsole(player, "Bonemeal is disabled for this block.");
 				}
 			}
-		} else {
+		}
+		else {
 			// custom
 			if (growResult.isGrow) {
 				// allowed by configuration and target was able to grow so use
