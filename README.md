@@ -1,3 +1,7 @@
+# Product is no longer in development (Jul 2022)
+
+--
+
 # BoneMealControl
 Minecraft modification for controlling which items bone meal can be used on.
 
